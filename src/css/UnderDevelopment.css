@@ -1,0 +1,39 @@
+.under-development {
+    min-height: 60vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+    padding: 2rem;
+}
+
+.under-development-icon {
+    width: 64px;
+    height: 64px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 1.5rem;
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+
+    font-size: 1.5rem;
+}
+
+.under-development h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.5rem;
+}
+
+.under-development p {
+    margin: 0;
+
+    line-height: 1.6;
+    opacity: 0.6;
+}

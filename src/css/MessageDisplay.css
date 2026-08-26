@@ -1,0 +1,9 @@
+.message-display-container{
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+
+}
+body{
+    height: 250vh;
+}
