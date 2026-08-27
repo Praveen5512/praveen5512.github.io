@@ -7,6 +7,7 @@ import HeroSection from './components/HeroSection';
 import { colors } from './constant';
 import API from './services/api';
 import UnderDevelopment from './components/UnderDevelopment';
+import CalDotCom from './components/CalDotCom';
 
 function App() {
     // const [profileDescription, setProfileDescription] = useState('');
@@ -50,6 +51,7 @@ function App() {
             <Navbar
                 active={active}
                 setActive={setActive}
+                
             />
 
             <HeroSection
@@ -57,6 +59,7 @@ function App() {
                 profileDescription
             />
             <UnderDevelopment/>
+            <CalDotCom/>
         </div>
     );
 }
