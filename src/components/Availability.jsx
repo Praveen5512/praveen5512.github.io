@@ -50,7 +50,7 @@ const Availability = () => {
             <div className="availability" >
                 <span className="availability-orb loading" />
 
-                <div className="availability-text availability-loading-text">
+                <div className="availability-text availability-loading-text contacted-count">
                     Loading availability
                     <span className="loading-dots">
                         <span>.</span>

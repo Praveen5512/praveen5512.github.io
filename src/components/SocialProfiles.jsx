@@ -1,7 +1,10 @@
 import { useState } from "react";
+import MessageDisplay from "./MessageDisplay";
 
 const SocialProfiles = () => {
     const [copied, setCopied] = useState(false);
+    const [message, setMessage]=useState("");
+    const [isError, setIsError]=useState(false);
     const socialProfiles = [
         {
             type: "email",
@@ -38,13 +41,16 @@ const SocialProfiles = () => {
         navigator.clipboard
             .writeText("praveen2015slv@gmail.com")
             .then(() => {
-                setCopied(true);
+                // setCopied(true);
+                setMessage("Email Copied Successfully");
+                setIsError(false)
 
-                setTimeout(() => {
-                    setCopied(false);
-                }, 2000);
+                
             })
-            .catch((err) => console.error("Error copying:", err));
+            .catch((err) => {
+                setMessage("Something went wrong!");
+                setIsError(true)
+            });
     };
 
     return (
@@ -84,6 +90,7 @@ const SocialProfiles = () => {
                     )}
                 </div>
             ))}
+            <MessageDisplay setMessage={setMessage} message={message} isError={isError}/>
         </div>
     );
 }

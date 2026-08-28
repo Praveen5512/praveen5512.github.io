@@ -8,6 +8,8 @@ import { colors } from './constant';
 import API from './services/api';
 import UnderDevelopment from './components/UnderDevelopment';
 import CalDotCom from './components/CalDotCom';
+import Contact from './components/Contact';
+import MessageDisplay from './components/MessageDisplay';
 
 function App() {
     // const [profileDescription, setProfileDescription] = useState('');
@@ -59,7 +61,12 @@ function App() {
                 profileDescription
             />
             <UnderDevelopment/>
+            <Contact/>
+
+
+
             <CalDotCom/>
+            
         </div>
     );
 }
