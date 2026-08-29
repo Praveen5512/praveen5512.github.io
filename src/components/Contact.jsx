@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../css/Contact.css";
 import MessageDisplay from "./MessageDisplay";
+import API from "../services/api";
 
 
 const Contact = () => {
@@ -46,41 +47,98 @@ const Contact = () => {
     const [message, setMessage] = useState("");
     const [isError, setIsError] = useState(false);
     const [availability, setAvailablity] = useState("Avaliable for Freelance, Collaborate and Meetings");
+    const [contactName, setContactName] = useState("");
+    const [contactEmail, setContactEmail] = useState("");
+    const [contactMessage, setContactMessage] = useState("");
 
 
+
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+
+    //     try {
+    //         setIsSubmitting(true);
+
+
+    //         const response = await fetch(API.contact, {
+    //             method: "POST",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //             body: JSON.stringify({
+    //                 name:contactName,
+    //                 email:contactEmail,
+    //                 message:contactMessage,
+    //             }),
+    //         });
+
+    //         // Temporary delay for testing
+    //         await new Promise((resolve) =>
+    //             setTimeout(resolve, 2000)
+    //         );
+    //         if(response.status=="ok")
+    //         {
+
+    //             setMessage("Message sent successfully!");
+    //         }
+
+    //     } catch (error) {
+    //         console.error("Contact API error:", error);
+    //         setMessage("Something went wrong!");
+    //         setIsError(true)
+
+    //     } finally {
+    //         setIsSubmitting(false);
+    //         // setIsError(false)
+    //         setContactName("");
+    //         setContactEmail("");
+    //         setContactMessage("");
+    //     }
+    // };
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
             setIsSubmitting(true);
+            setIsError(false);
 
-            // Call your API here
-            // const response = await fetch(API_URL, {
-            //     method: "POST",
-            //     headers: {
-            //         "Content-Type": "application/json",
-            //     },
-            //     body: JSON.stringify({
-            //         name,
-            //         email,
-            //         message,
-            //     }),
-            // });
+            const params = new URLSearchParams({
+                name: contactName,
+                email: contactEmail,
+                message: contactMessage,
+            });
 
-            // Temporary delay for testing
-            await new Promise((resolve) =>
-                setTimeout(resolve, 2000)
+            const response = await fetch(
+                `${API.contact}?${params.toString()}`,
+                {
+                    method: "POST",
+                    redirect: "follow",
+                }
             );
-            setMessage("Message sent successfully!");
+
+            const result = await response.json();
+
+            console.log("API Response:", result);
+
+            if (result.status === "okay") {
+                setMessage(result.message);
+
+                setContactName("");
+                setContactEmail("");
+                setContactMessage("");
+            } else {
+                setMessage(result.message || "Something went wrong!");
+                setIsError(true);
+            }
 
         } catch (error) {
             console.error("Contact API error:", error);
-            setMessage("Something went wrong!");
-            setIsError(true)
+
+            setMessage("Something went wrong! Please try again.");
+            setIsError(true);
 
         } finally {
             setIsSubmitting(false);
-            // setIsError(false)
         }
     };
 
@@ -88,33 +146,8 @@ const Contact = () => {
         <div className="contact-container mt-2 position-relative mb-4">
             <h6 className="profile-name  text-center mb-4"> <span className="contact-heading py-2">Get In Touch</span></h6>
 
-            <p className="profile-sub-text">
-                {availability}<br />
-                <span>
-                    Wanna say{" "}
-                    <span className="contact-text">Hello</span>,{" "}
-                    <span className="contact-text">Queries</span>,{" "}
-                    <span className="contact-text">Collaborate</span> or{" "}
-                    <span className="contact-text">
-                        Get to know me?
-                    </span>
-                </span>
-
-                <br />
-
-                <span>
-                    Feel free to type your details and hit send.
-                    I would like to hear what{" "}
-                    <span className="contact-text">problem</span>{" "}
-                    you're facing and let me see{" "}
-                    <span className="contact-text">
-                        if I can help
-                    </span>{" "}
-                    you!
-                </span>
-            </p>
             <div className="row">
-                <div className="col-6 col-lg-6">
+                <div className="col-12 col-lg-6 mb-4">
                     <form className="contact-form" onSubmit={handleSubmit}>
                         <div className="row">
                             <div className="col-12 col-lg-6">
@@ -124,7 +157,8 @@ const Contact = () => {
                                     className="form-control contact-input mb-2"
                                     disabled={isSubmitting}
                                     required
-                                    // value={"Praveen"}
+                                    onChange={(e) => { setContactName(e.target.value) }}
+                                    value={contactName}
                                 />
                             </div>
 
@@ -135,7 +169,8 @@ const Contact = () => {
                                     className="form-control contact-input mb-2"
                                     disabled={isSubmitting}
                                     required
-                                    // value={"praveen2015slv@gmail.com"}
+                                    onChange={(e) => { setContactEmail(e.target.value) }}
+                                    value={contactEmail}
                                 />
                             </div>
                         </div>
@@ -148,7 +183,8 @@ const Contact = () => {
                             placeholder="Message"
                             disabled={isSubmitting}
                             required
-                            // value={"Hello"}
+                            onChange={(e) => { setContactMessage(e.target.value) }}
+                            value={contactMessage}
                         />
 
                         <button
@@ -171,13 +207,12 @@ const Contact = () => {
                         </button>
                     </form>
                 </div>
-                <div className="col-6">
-                    <h6 className="profile-text text-center">
-                        Wanna Reach out?
-                    </h6>
+                <div className="col-12 col-lg-6">
 
-                    <div className="d-flex justify-content-center align-items-center mt-3">
-                        <div className="w-50">
+                    <p className="profile-name">{availability}</p>
+
+                    <div className=" mt-3">
+                        <div className="">
                             {contactProfiles.map((profile) => (
                                 <div
                                     className="social-profile-pin social-profile-text contact-item"

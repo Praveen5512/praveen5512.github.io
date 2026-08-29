@@ -12,6 +12,8 @@ const API = {
     skills: "",
     about: "",
     experience: "",
+    // contact:"https://script.google.com/macros/s/AKfycbxEapIAFZbbXWEQTdPuT3ZoeCQnRW1tnBNt91fKdwdcC8qre1sXKcKgxo-zwJ_IvD4Xrw/exec"
+    contact:"https://script.google.com/macros/s/AKfycbxajp-s8W5cxxOE2R1Q_zcPZQ6WNQ7_xigikTgxODDrnYKTCyJ7gAuYmbUrgPOq1VfiSw/exec"
 };
 
 export default API;
