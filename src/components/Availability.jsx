@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import "../css/Availability.css";
+import API from "../services/api";
 
-const API_URL =
-    "https://script.google.com/macros/s/AKfycbxajp-s8W5cxxOE2R1Q_zcPZQ6WNQ7_xigikTgxODDrnYKTCyJ7gAuYmbUrgPOq1VfiSw/exec?request=availability";
+
+// const API_URL ="https://script.google.com/macros/s/AKfycbxajp-s8W5cxxOE2R1Q_zcPZQ6WNQ7_xigikTgxODDrnYKTCyJ7gAuYmbUrgPOq1VfiSw/exec?request=availability";
 
 const Availability = () => {
     const [data, setData] = useState([]);
@@ -12,7 +13,7 @@ const Availability = () => {
     useEffect(() => {
         const fetchAvailability = async () => {
             try {
-                const response = await fetch(API_URL);
+                const response = await fetch(API.availability);
 
                 if (!response.ok) {
                     throw new Error("Failed to fetch availability");

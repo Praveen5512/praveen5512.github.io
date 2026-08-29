@@ -30,6 +30,12 @@ const Contact = () => {
             copyText: "https://www.linkedin.com/in/praveen-v-5aa983175/",
             openLabel: "Open LinkedIn",
         },
+        {
+            type: "meeting",
+            icon: "fa-solid fa-handshake",
+            text: "Book an Appoinment",
+            openLabel: "Book an Appoinment",
+        },
     ];
     const handleCopy = async (text) => {
         try {
@@ -46,10 +52,10 @@ const Contact = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [message, setMessage] = useState("");
     const [isError, setIsError] = useState(false);
-    const [availability, setAvailablity] = useState("Avaliable for Freelance, Collaborate and Meetings");
-    const [contactName, setContactName] = useState("");
-    const [contactEmail, setContactEmail] = useState("");
-    const [contactMessage, setContactMessage] = useState("");
+    const [availability, setAvailablity] = useState("");
+    const [contactName, setContactName] = useState("Praveen");
+    const [contactEmail, setContactEmail] = useState("praveen2015slv@gmail.com");
+    const [contactMessage, setContactMessage] = useState("Hello");
 
 
 
@@ -121,7 +127,7 @@ const Contact = () => {
             console.log("API Response:", result);
 
             if (result.status === "okay") {
-                setMessage(result.message);
+                setMessage(`Hi ${result.received.name}!, Thanks for reaching out`);
 
                 setContactName("");
                 setContactEmail("");
@@ -227,44 +233,66 @@ const Contact = () => {
                                     </div>
 
                                     <div className="contact-actions">
-                                        <a
-                                            href={profile.link}
-                                            target={
-                                                profile.type === "linkedin"
-                                                    ? "_blank"
-                                                    : undefined
-                                            }
-                                            rel={
-                                                profile.type === "linkedin"
-                                                    ? "noreferrer"
-                                                    : undefined
-                                            }
-                                            aria-label={profile.openLabel}
-                                            title={profile.openLabel}
-                                        >
-                                            <i className="fa-solid fa-arrow-up-right-from-square"></i>
-                                        </a>
+                                        {profile.type === "meeting" ? (
+                                            <button
+                                                type="button"
+                                                data-cal-namespace="15min"
+                                                data-cal-link="praveen-vaithiyalingam/15min"
+                                                data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
+                                                aria-label={profile.openLabel}
+                                                title={profile.openLabel}
+                                            >
+                                                <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                                            </button>
+                                        ) : (
+                                            <a
+                                                href={profile.link}
+                                                target={
+                                                    profile.type === "linkedin"
+                                                        ? "_blank"
+                                                        : undefined
+                                                }
+                                                rel={
+                                                    profile.type === "linkedin"
+                                                        ? "noreferrer"
+                                                        : undefined
+                                                }
+                                                aria-label={profile.openLabel}
+                                                title={profile.openLabel}
+                                            >
+                                                <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                                            </a>
+                                        )}
+                                        {profile.type !== "meeting"
 
-                                        <button
-                                            type="button"
-                                            onClick={() =>
-                                                handleCopy(profile.copyText)
-                                            }
-                                            aria-label={`Copy ${profile.text}`}
-                                            title="Copy"
-                                        >
-                                            <i className="fa-solid fa-copy"></i>
-                                        </button>
+                                            &&
+                                            <button
+                                                type="button"
+                                                onClick={() =>
+                                                    handleCopy(profile.copyText)
+                                                }
+                                                aria-label={`Copy ${profile.text}`}
+                                                title="Copy"
+                                            >
+                                                <i className="fa-solid fa-copy"></i>
+                                            </button>
+                                        }
                                     </div>
                                 </div>
                             ))}
+
+
+                            <div className="container ms-2 mt-4">
+                                <p className="contact-hook-message">Wanna work together?<br />
+                                Grab a coffee and come. Let's build
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-
-            <div className="contacted-count-container position-absolute top-0 end-0"><span className="contacted-count">{"10+"}</span>Contacted this month</div>
+            <div className="contacted-count-container position-absolute top-0 end-0"><span className="contacted-count">{"10+ "}</span>Contacted this month</div>
             <MessageDisplay message={message} setMessage={setMessage} isError={isError} />
         </div>
 

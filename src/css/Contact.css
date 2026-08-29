@@ -45,7 +45,7 @@ button.contact-input:hover {
     border: 1px solid #60A5FA;
     padding: 0.2rem 0.5rem;
     border-radius: 0.9rem;
-    font-size: 0.5rem;    
+    font-size: 0.8rem;    
 
 }
 .contacted-count{
@@ -115,4 +115,24 @@ button.contact-input:hover {
 .contact-actions a:hover,
 .contact-actions button:hover {
     transform: scale(1.1);
+}
+.contact-hook-message{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    letter-spacing: 2px;
+    font-size: 2rem;
+    color: #252A30;
+}
+
+@media (max-width: 768px) {
+    .contact-hook-message {
+        font-size: 1.5rem;
+        letter-spacing: 1px;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-hook-message {
+        font-size: 1.25rem;
+        letter-spacing: 1px;
+    }
 }
