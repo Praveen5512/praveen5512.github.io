@@ -1,4 +1,4 @@
-const MAIN_ENDPOINT="https://script.google.com/macros/s/AKfycbxajp-s8W5cxxOE2R1Q_zcPZQ6WNQ7_xigikTgxODDrnYKTCyJ7gAuYmbUrgPOq1VfiSw/exec"
+const MAIN_ENDPOINT="https://script.google.com/macros/s/AKfycbz3k7A7SSCvlOqfGg2fxxGkCJqJnphM5dkA4zupcjX6SjeLYAPdSf_poWiTdr8Y7VY5Ug/exec"
 const API = {
     profile: {
         description:
@@ -6,6 +6,7 @@ const API = {
     },
 
     availability:MAIN_ENDPOINT+"?request=availability",
+    monthly_contacted:MAIN_ENDPOINT+"?request=monthly_contacted",
 
     socialProfiles: "",
     projects: "",

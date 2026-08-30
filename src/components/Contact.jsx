@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../css/Contact.css";
 import MessageDisplay from "./MessageDisplay";
 import API from "../services/api";
@@ -52,55 +52,32 @@ const Contact = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [message, setMessage] = useState("");
     const [isError, setIsError] = useState(false);
-    const [availability, setAvailablity] = useState("");
-    const [contactName, setContactName] = useState("Praveen");
-    const [contactEmail, setContactEmail] = useState("praveen2015slv@gmail.com");
-    const [contactMessage, setContactMessage] = useState("Hello");
+    // const [availability, setAvailablity] = useState("");
+    const [contactName, setContactName] = useState("");
+    const [contactEmail, setContactEmail] = useState("");
+    const [contactMessage, setContactMessage] = useState("");
+    const [contactedCount, setContactedCount] = useState();
+
+    useEffect(() => {
 
 
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
 
-    //     try {
-    //         setIsSubmitting(true);
+        fetchMonthlyContacted();
+    }, []);
+    const fetchMonthlyContacted = async () => {
+        try {
+            const response = await fetch(API.monthly_contacted);
+            const result = await response.json();
 
 
-    //         const response = await fetch(API.contact, {
-    //             method: "POST",
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //             },
-    //             body: JSON.stringify({
-    //                 name:contactName,
-    //                 email:contactEmail,
-    //                 message:contactMessage,
-    //             }),
-    //         });
+            setContactedCount(result.count);
+        } catch (error) {
+            console.error("Failed to fetch monthly contacted count:", error);
+        }
+    };
 
-    //         // Temporary delay for testing
-    //         await new Promise((resolve) =>
-    //             setTimeout(resolve, 2000)
-    //         );
-    //         if(response.status=="ok")
-    //         {
 
-    //             setMessage("Message sent successfully!");
-    //         }
-
-    //     } catch (error) {
-    //         console.error("Contact API error:", error);
-    //         setMessage("Something went wrong!");
-    //         setIsError(true)
-
-    //     } finally {
-    //         setIsSubmitting(false);
-    //         // setIsError(false)
-    //         setContactName("");
-    //         setContactEmail("");
-    //         setContactMessage("");
-    //     }
-    // };
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -124,7 +101,7 @@ const Contact = () => {
 
             const result = await response.json();
 
-            console.log("API Response:", result);
+
 
             if (result.status === "okay") {
                 setMessage(`Hi ${result.received.name}!, Thanks for reaching out`);
@@ -132,6 +109,7 @@ const Contact = () => {
                 setContactName("");
                 setContactEmail("");
                 setContactMessage("");
+                fetchMonthlyContacted()
             } else {
                 setMessage(result.message || "Something went wrong!");
                 setIsError(true);
@@ -149,8 +127,8 @@ const Contact = () => {
     };
 
     return (
-        <div className="contact-container mt-2 position-relative mb-4">
-            <h6 className="profile-name  text-center mb-4"> <span className="contact-heading py-2">Get In Touch</span></h6>
+        <div id="contact" className="contact-container mt-2 position-relative mb-4">
+            <h6 className="profile-name contact-heading-container  text-center mb-4"> <span className="contact-heading py-2">Get In Touch</span></h6>
 
             <div className="row">
                 <div className="col-12 col-lg-6 mb-4">
@@ -215,7 +193,7 @@ const Contact = () => {
                 </div>
                 <div className="col-12 col-lg-6">
 
-                    <p className="profile-name">{availability}</p>
+                    {/* <p className="profile-name">{availability}</p> */}
 
                     <div className=" mt-3">
                         <div className="">
@@ -284,7 +262,7 @@ const Contact = () => {
 
                             <div className="container ms-2 mt-4">
                                 <p className="contact-hook-message">Wanna work together?<br />
-                                Grab a coffee and come. Let's build
+                                    Grab a coffee and come. Let's build
                                 </p>
                             </div>
                         </div>
@@ -292,7 +270,18 @@ const Contact = () => {
                 </div>
             </div>
 
-            <div className="contacted-count-container position-absolute top-0 end-0"><span className="contacted-count">{"10+ "}</span>Contacted this month</div>
+            <div className="contacted-count-container position-absolute top-0 end-0">
+
+
+                {contactedCount ?
+                    (<><span className="contacted-count contacted-count-loading">{contactedCount}  </span> contacted this month </>)
+                    : (<span className="loading-dots">Loading
+                        <span>.</span>
+                        <span>.</span>
+                        <span>.</span>
+                    </span>)}
+
+            </div>
             <MessageDisplay message={message} setMessage={setMessage} isError={isError} />
         </div>
 

@@ -1,0 +1,19 @@
+.brands{
+    opacity: 40%;
+    margin: 0 0.1rem;
+}
+.brands:hover{
+    opacity: 100%;
+
+}
+.copyright-text{
+    font-size: 0.7rem;
+}
+
+@media (max-width : 600px)
+{
+.copyright-text{
+    font-size : 0.7rem;
+}
+}
+

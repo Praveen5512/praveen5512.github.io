@@ -44,7 +44,7 @@ button.contact-input:hover {
 .contacted-count-container{
     border: 1px solid #60A5FA;
     padding: 0.2rem 0.5rem;
-    border-radius: 0.9rem;
+    /* border-radius: 0.9rem; */
     font-size: 0.8rem;    
 
 }
@@ -135,4 +135,16 @@ button.contact-input:hover {
         font-size: 1.25rem;
         letter-spacing: 1px;
     }
+}
+@media (max-width: 600px) {
+    .contacted-count-container{
+    
+    padding: 0.2rem 0.5rem;
+    border-radius: 0!important;
+    font-size: 0.7rem;    
+
+}
+.contact-heading-container{
+    text-align: start!important;
+}
 }

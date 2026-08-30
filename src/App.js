@@ -1,44 +1,22 @@
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import './App.css';
 
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 
 import { colors } from './constant';
-import API from './services/api';
+// import API from './services/api';
 import UnderDevelopment from './components/UnderDevelopment';
 import CalDotCom from './components/CalDotCom';
 import Contact from './components/Contact';
-import MessageDisplay from './components/MessageDisplay';
+// import MessageDisplay from './components/MessageDisplay';
+import Footer from './components/Footer';
 
 function App() {
     // const [profileDescription, setProfileDescription] = useState('');
     const [active, setActive] = useState("home");
 
-    // useEffect(() => {
-    //     const fetchProfileDescription = async () => {
-    //         try {
-    //             const response = await fetch(API.profile.description);
-
-    //             if (!response.ok) {
-    //                 throw new Error("Failed to fetch profile description");
-    //             }
-
-    //             const result = await response.json();
-    //             console.log(result);
-                
-
-    //             setProfileDescription(result.description);
-    //         } catch (error) {
-    //             console.error(
-    //                 "Profile description API error:",
-    //                 error
-    //             );
-    //         }
-    //     };
-
-    //     fetchProfileDescription();
-    // }, []);
+  
     
     
 
@@ -62,6 +40,7 @@ function App() {
             />
             <UnderDevelopment/>
             <Contact/>
+            <Footer/>
 
 
 

@@ -9,7 +9,8 @@ const SocialProfiles = () => {
         {
             type: "email",
             icon: "fa-solid fa-envelope",
-            text: "praveen2015slv@gmail.com"
+            text: "praveen2015slv@gmail.com",
+            url: "mailto:praveen2015slv@gmail.com"
         },
         {
             type: "link",
@@ -17,12 +18,7 @@ const SocialProfiles = () => {
             text: "LinkedIn",
             url: "https://www.linkedin.com/in/praveen-v-5aa983175/"
         },
-        {
-            type: "link",
-            icon: "fa-solid fa-globe",
-            text: "Blogs",
-            url: "https://medium.com/@praveen2015slv"
-        },
+        
         {
             type: "link",
             icon: "fa-brands fa-github",
@@ -34,6 +30,11 @@ const SocialProfiles = () => {
             icon: "fa-brands fa-youtube text-danger",
             text: "Youtube",
             url: "https://www.youtube.com/@praveen---v-21"
+        },{
+            type: "link",
+            icon: "fa-solid fa-square-rss",
+            text: "Blogs",
+            url: "https://medium.com/@praveen2015slv"
         },
     ];
 
@@ -44,27 +45,56 @@ const SocialProfiles = () => {
                 // setCopied(true);
                 setMessage("Email Copied Successfully");
                 setIsError(false)
+                setCopied(true)
 
                 
             })
             .catch((err) => {
                 setMessage("Something went wrong!");
                 setIsError(true)
-            });
+            })
+            .finally(()=>{
+                setCopied(false)
+            })
+            
     };
+    const openLink=(profile)=>{
+        console.log(profile);
+        window.open(profile.url,"_blank").focus()
+        
+    }
 
     return (
         <div className="social-profile-pins">
             {socialProfiles.map((profile, index) => (
                 <div
+                    
                     className="social-profile-pin"
                     key={index}
-                    onClick={profile.type === "email" ? copyEmail : undefined}
+                    onClick={()=>{
+                        if(profile.type==="email")
+                        {
+                            copyEmail()
+                        }
+                        if(profile.type!=="email")
+                        {
+                            openLink(profile)
+                        }
+                        
+                    }}
                     role={profile.type === "email" ? "button" : undefined}
                     tabIndex={profile.type === "email" ? 0 : undefined}
                 >
-                    <i className={`${profile.icon} icon`}></i>
 
+                    <i onClick={(e)=>{
+                        if(profile.type==="email")
+                        {
+
+                            e.stopPropagation()
+                            window.open(profile.url)
+                        }
+                        }} className={`${profile.icon} icon social-profile-mobile-screen d-none`}></i>
+                    <i className={`${profile.icon} icon social-profile-large-screen`}></i>
                     {profile.type === "email" ? (
                         <>
                             <span className="social-profile-text">
@@ -79,14 +109,12 @@ const SocialProfiles = () => {
                             )}
                         </>
                     ) : (
-                        <a
-                            href={profile.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                        <span
+                            
                             className="social-profile-text"
                         >
                             {profile.text}
-                        </a>
+                        </span>
                     )}
                 </div>
             ))}
