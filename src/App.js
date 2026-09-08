@@ -11,6 +11,7 @@ import CalDotCom from './components/CalDotCom';
 import Contact from './components/Contact';
 // import MessageDisplay from './components/MessageDisplay';
 import Footer from './components/Footer';
+import Experience from './components/Experience';
 
 function App() {
     // const [profileDescription, setProfileDescription] = useState('');
@@ -38,6 +39,7 @@ function App() {
                 // profileDescription={profileDescription}
                 profileDescription
             />
+            <Experience/>
             <UnderDevelopment/>
             <Contact/>
             <Footer/>

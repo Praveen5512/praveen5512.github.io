@@ -4,10 +4,11 @@ import Availability from "./Availability";
 import SocialProfiles from "./SocialProfiles";
 
 const HeroSection = () => {
+    
     const profileSubText = [
         "Integration Developer",
+        "Systems Thinker",
         "Full Stack Developer",
-        "Systems Thinker"
     ];
 
     const profileDescription = [

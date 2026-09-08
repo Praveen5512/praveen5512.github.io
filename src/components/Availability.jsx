@@ -40,7 +40,7 @@ const Availability = () => {
 
         const interval = setInterval(() => {
             setCurrentIndex((prev) => (prev + 1) % activeStatuses.length);
-        }, 2000);
+        }, 5000);
 
         return () => clearInterval(interval);
     }, [activeStatuses.length]);
